@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quay Trà Sữa · Đống Đa</title>
+<meta name="description" content="Không biết uống gì hôm nay? Chọn mood, lọc khoảng cách, quay là ra quán trà sữa ở Đống Đa, Hà Nội.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#1a1228;
+  --bg2:#2a1a3e;
+  --cream:#fef6e4;
+  --pink:#ff6b9d;
+  --pink-deep:#e8437a;
+  --peach:#ffb86b;
+  --mint:#6bdfb8;
+  --lav:#b08fff;
+  --ink:#2a1a3e;
+  --shadow:rgba(20,8,40,.45);
+  --r:24px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'Be Vietnam Pro',system-ui,sans-serif;
+  background:
+    radial-gradient(1200px 600px at 15% -10%,#3a2156 0%,transparent 55%),
+    radial-gradient(900px 500px at 110% 20%,#52265e 0%,transparent 50%),
+    linear-gradient(160deg,var(--bg) 0%,var(--bg2) 100%);
+  color:var(--cream);
+  min-height:100%;
+  overflow-x:hidden;
+  -webkit-tap-highlight-color:transparent;
+}
+.bubbles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bubbles span{
+  position:absolute;bottom:-60px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.35),rgba(255,107,157,.18));
+  animation:rise linear infinite;
+}
+@keyframes rise{to{transform:translateY(-110vh) translateX(20px);opacity:0}}
+.wrap{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:24px 18px 60px}
+header{text-align:center;padding:18px 0 8px}
+.kicker{
+  font-family:'Be Vietnam Pro';font-weight:600;font-size:.72rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--peach);opacity:.9
+}
+h1{
+  font-family:'Baloo 2',cursive;font-weight:800;line-height:1;
+  font-size:clamp(2.4rem,9vw,3.6rem);margin:.15em 0 .1em;
+  background:linear-gradient(100deg,var(--pink),var(--peach) 60%,var(--mint));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 4px 14px var(--shadow));
+}
+.sub{font-size:.95rem;color:#e9d9ff;opacity:.82;max-width:380px;margin:0 auto}
+.card{
+  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--r);padding:22px;margin-top:22px;
+  box-shadow:0 18px 50px -20px var(--shadow);backdrop-filter:blur(6px);
+}
+.step-label{
+  font-family:'Baloo 2';font-weight:700;font-size:1.15rem;margin-bottom:4px;display:flex;align-items:center;gap:9px
+}
+.step-num{
+  width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+  background:var(--pink);color:#fff;font-size:.85rem;font-weight:700;flex:none;
+  box-shadow:0 4px 10px -2px var(--pink-deep)
+}
+.hint{font-size:.83rem;color:#d9c7f5;opacity:.7;margin:2px 0 16px 37px}
+.mood-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:11px}
+.mood{
+  cursor:pointer;border:none;border-radius:18px;padding:15px 8px 12px;
+  background:rgba(255,255,255,.06);border:1.5px solid transparent;
+  color:var(--cream);font-family:inherit;text-align:center;transition:.18s;
+}
+.mood:hover{transform:translateY(-3px);background:rgba(255,255,255,.1)}
+.mood .emo{font-size:1.9rem;display:block;line-height:1;margin-bottom:7px}
+.mood .nm{font-size:.82rem;font-weight:600}
+.mood.on{
+  background:linear-gradient(160deg,var(--pink),var(--pink-deep));
+  border-color:#fff;transform:translateY(-3px) scale(1.03);
+  box-shadow:0 12px 26px -10px var(--pink-deep)
+}
+.filters{display:flex;flex-direction:column;gap:18px}
+.frow label{font-size:.9rem;font-weight:600;display:flex;justify-content:space-between;margin-bottom:9px}
+.frow label b{color:var(--peach);font-weight:700}
+input[type=range]{
+  -webkit-appearance:none;width:100%;height:8px;border-radius:8px;
+  background:linear-gradient(90deg,var(--mint),var(--peach),var(--pink));outline:none
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:26px;height:26px;border-radius:50%;
+  background:#fff;border:4px solid var(--pink);cursor:pointer;box-shadow:0 3px 8px var(--shadow)
+}
+input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#fff;border:4px solid var(--pink);cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  cursor:pointer;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05);
+  color:var(--cream);border-radius:999px;padding:7px 14px;font-size:.82rem;font-weight:600;
+  font-family:inherit;transition:.15s
+}
+.chip.on{background:var(--mint);color:var(--ink);border-color:var(--mint)}
+.geo-btn{
+  margin-top:10px;width:100%;border:1.5px dashed rgba(107,223,184,.6);background:rgba(107,223,184,.08);
+  color:var(--mint);border-radius:14px;padding:11px;font-family:inherit;font-weight:600;font-size:.85rem;cursor:pointer;transition:.15s
+}
+.geo-btn:hover{background:rgba(107,223,184,.16)}
+.geo-btn.ok{border-style:solid;color:var(--ink);background:var(--mint)}
+
+/* WHEEL */
+.wheel-wrap{position:relative;width:min(330px,82vw);aspect-ratio:1;margin:6px auto 4px}
+.wheel-pointer{
+  position:absolute;top:-6px;left:50%;transform:translateX(-50%);z-index:5;
+  width:0;height:0;border-left:18px solid transparent;border-right:18px solid transparent;
+  border-top:30px solid var(--peach);filter:drop-shadow(0 3px 4px var(--shadow))
+}
+canvas{width:100%;height:100%;border-radius:50%;box-shadow:0 0 0 10px rgba(255,255,255,.08),0 24px 60px -18px var(--shadow);transition:transform 5s cubic-bezier(.17,.67,.16,.99)}
+.hub{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:4;
+  width:64px;height:64px;border-radius:50%;background:#fff;display:grid;place-items:center;
+  font-size:1.7rem;box-shadow:0 6px 16px var(--shadow)
+}
+.btn{
+  display:block;width:100%;margin-top:18px;border:none;cursor:pointer;
+  font-family:'Baloo 2';font-weight:800;font-size:1.15rem;color:#fff;
+  background:linear-gradient(135deg,var(--pink),var(--pink-deep));
+  padding:16px;border-radius:18px;box-shadow:0 14px 30px -10px var(--pink-deep);transition:.15s;letter-spacing:.02em
+}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn.ghost{background:rgba(255,255,255,.08);box-shadow:none;border:1.5px solid rgba(255,255,255,.18);color:var(--cream);font-size:1rem}
+.count{text-align:center;font-size:.85rem;color:#d9c7f5;opacity:.75;margin-top:10px}
+.hidden{display:none!important}
+
+/* RESULT */
+.result{animation:pop .5s cubic-bezier(.2,1.3,.4,1)}
+@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+.res-tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--peach);font-weight:600;text-align:center}
+.res-name{font-family:'Baloo 2';font-weight:800;font-size:1.7rem;text-align:center;line-height:1.1;margin:8px 0 6px}
+.res-meta{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;font-size:.88rem;color:#e9d9ff;margin-bottom:14px}
+.res-meta span{display:inline-flex;align-items:center;gap:5px}
+.res-line{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;padding:8px 0;border-top:1px solid rgba(255,255,255,.08)}
+.res-line .ic{flex:none;width:22px;text-align:center;opacity:.85}
+.res-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.res-actions a{
+  text-decoration:none;text-align:center;border-radius:14px;padding:13px;font-weight:700;font-size:.92rem;font-family:inherit
+}
+.a-map{background:var(--mint);color:var(--ink)}
+.a-call{background:rgba(255,255,255,.1);color:var(--cream);border:1.5px solid rgba(255,255,255,.2)}
+footer{text-align:center;margin-top:30px;font-size:.76rem;color:#cdbbe8;opacity:.55;line-height:1.6}
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:#fff;padding:12px 20px;border-radius:14px;font-size:.85rem;font-weight:600;
+  box-shadow:0 10px 30px var(--shadow);opacity:0;transition:.3s;z-index:50;border:1px solid rgba(255,255,255,.15)
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="bubbles" id="bubbles"></div>
+<div class="wrap">
+  <header>
+    <div class="kicker">Đống Đa · Hà Nội · 100 quán</div>
+    <h1>Quay Trà Sữa</h1>
+    <p class="sub">Không biết hôm nay uống gì? Chọn tâm trạng, lọc khoảng cách, rồi quay — để vũ trụ trà sữa quyết định 🧋</p>
+  </header>
+
+  <!-- STEP 1: MOOD -->
+  <section class="card" id="cardMood">
+    <div class="step-label"><span class="step-num">1</span> Hôm nay tâm trạng thế nào?</div>
+    <div class="hint">Chọn 1 mood — mỗi mood gợi ý kiểu quán khác nhau.</div>
+    <div class="mood-grid" id="moodGrid"></div>
+  </section>
+
+  <!-- STEP 2: FILTERS -->
+  <section class="card hidden" id="cardFilter">
+    <div class="step-label"><span class="step-num">2</span> Lọc theo ý bạn</div>
+    <div class="hint">Bật định vị để lọc theo khoảng cách thật từ chỗ bạn đứng.</div>
+    <div class="filters">
+      <div class="frow">
+        <button class="geo-btn" id="geoBtn">📍 Bật định vị để tính khoảng cách</button>
+      </div>
+      <div class="frow" id="distRow">
+        <label>Khoảng cách tối đa <b id="distVal">3.0 km</b></label>
+        <input type="range" id="dist" min="0.5" max="8" step="0.5" value="3">
+      </div>
+      <div class="frow">
+        <label>Điểm đánh giá tối thiểu <b id="scoreVal">≥ 0★</b></label>
+        <input type="range" id="score" min="0" max="5" step="0.5" value="0">
+      </div>
+      <div class="frow">
+        <label>Kiểu quán <b id="catCount">tất cả</b></label>
+        <div class="chips" id="catChips"></div>
+      </div>
+    </div>
+    <button class="btn" id="toWheel">Tiếp tục →</button>
+    <div class="count" id="filterCount"></div>
+  </section>
+
+  <!-- STEP 3: WHEEL -->
+  <section class="card hidden" id="cardWheel">
+    <div class="step-label"><span class="step-num">3</span> Quay nào!</div>
+    <div class="hint" id="wheelHint"></div>
+    <div class="wheel-wrap">
+      <div class="wheel-pointer"></div>
+      <canvas id="wheel" width="600" height="600"></canvas>
+      <div class="hub">🧋</div>
+    </div>
+    <button class="btn" id="spinBtn">QUAY 🎡</button>
+    <button class="btn ghost" id="backFilter">← Đổi bộ lọc</button>
+  </section>
+
+  <!-- STEP 4: RESULT -->
+  <section class="card hidden result" id="cardResult"></section>
+
+  <footer>
+    Dữ liệu 100 quán trà sữa/cà phê quận Đống Đa · cào từ Google Maps qua Apify.<br>
+    Khoảng cách là ước lượng theo đường chim bay. Made with 🧋 for prep.edu.
+  </footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const PLACES = [{"name": "VaVaLy Trà Nướng - Coffee & Tea", "score": 5.0, "reviews": 1, "street": "45 Đ. Láng", "ward": "Đống Đa", "website": null, "phone": "+84 983 585 510", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.0137, "lng": 105.808, "placeId": "ChIJQzunDACtNTERy43Yvx6hMu4", "mapUrl": "https://www.google.com/maps/search/?api=1&query=VaVaLy%20Tr%C3%A0%20N%C6%B0%E1%BB%9Bng%20-%20Coffee%20%26%20Tea&query_place_id=ChIJQzunDACtNTERy43Yvx6hMu4"}, {"name": "LaBoong 35 Đường Láng - Trà ô long làng La Boong", "score": 4.8, "reviews": 146, "street": "35 Đ. Láng", "ward": "Đống Đa", "website": "https://laboong.vn/", "phone": "+84 328 363 535", "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.0137, "lng": 105.808, "placeId": "ChIJEehalL-rNTERY6xZyl3mRh0", "mapUrl": "https://www.google.com/maps/search/?api=1&query=LaBoong%2035%20%C4%90%C6%B0%E1%BB%9Dng%20L%C3%A1ng%20-%20Tr%C3%A0%20%C3%B4%20long%20l%C3%A0ng%20La%20Boong&query_place_id=ChIJEehalL-rNTERY6xZyl3mRh0"}, {"name": "Lâm Trà", "score": 5.0, "reviews": 20, "street": "8 Đ. Nguyễn Trãi", "ward": "Khương Đình", "website": null, "phone": "+84 838 565 566", "category": "Cửa hàng trà truyền thống", "cats": ["Cửa hàng trà truyền thống"], "lat": 20.9955, "lng": 105.805, "placeId": "ChIJnbEckletNTERogAqPASE58s", "mapUrl": "https://www.google.com/maps/search/?api=1&query=L%C3%A2m%20Tr%C3%A0&query_place_id=ChIJnbEckletNTERogAqPASE58s"}, {"name": "Trà Chanh Bụi Phố Đường Láng", "score": 4.1, "reviews": 119, "street": "31 Đ. Láng", "ward": "Đống Đa", "website": null, "phone": "+84 915 031 987", "category": "Phòng trà", "cats": ["Phòng trà"], "lat": 21.0137, "lng": 105.808, "placeId": "ChIJS6BlkNCrNTERXt-WVxU_0Ow", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20Chanh%20B%E1%BB%A5i%20Ph%E1%BB%91%20%C4%90%C6%B0%E1%BB%9Dng%20L%C3%A1ng&query_place_id=ChIJS6BlkNCrNTERXt-WVxU_0Ow"}, {"name": "Trà Vương", "score": 5.0, "reviews": 1, "street": "40 P. Tô Vĩnh Diện", "ward": "Khương Đình", "website": "https://travuong.com/", "phone": "+84 834 446 663", "category": "Cửa hàng thực phẩm thiên nhiên", "cats": ["Cửa hàng thực phẩm thiên nhiên"], "lat": 21.005, "lng": 105.819, "placeId": "ChIJZ09AbDOtNTERcHMjEAqGVC4", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20V%C6%B0%C6%A1ng&query_place_id=ChIJZ09AbDOtNTERcHMjEAqGVC4"}, {"name": "Feeling Tea Giảng Võ", "score": 3.9, "reviews": 226, "street": "155 P. Giảng Võ", "ward": "Ô Chợ Dừa", "website": "http://www.feelingteaonline.com/", "phone": "+84 24 3736 9047", "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.029, "lng": 105.821, "placeId": "ChIJnx4bo3WrNTERFddyzpmGxKg", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Feeling%20Tea%20Gi%E1%BA%A3ng%20V%C3%B5&query_place_id=ChIJnx4bo3WrNTERFddyzpmGxKg"}, {"name": "Nagocha Matcha Specialty & Tea House @ HANOICENTRE", "score": 4.1, "reviews": 60, "street": "Hanoi Centre Department Store, 175 P. Nguyễn Thái Học", "ward": "Ô Chợ Dừa", "website": "https://nagocha.com/", "phone": "+84 899 498 789", "category": "Phòng trà", "cats": ["Phòng trà"], "lat": 21.032, "lng": 105.838, "placeId": "ChIJL0DIKsGrNTER6VZThfoGxfg", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Nagocha%20Matcha%20Specialty%20%26%20Tea%20House%20%40%20HANOICENTRE&query_place_id=ChIJL0DIKsGrNTER6VZThfoGxfg"}, {"name": "ChaTraMue HaNoi Centre", "score": 3.7, "reviews": 22, "street": "175B P. Nguyễn Thái Học", "ward": "Ô Chợ Dừa", "website": null, "phone": "+84 858 686 776", "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.032, "lng": 105.838, "placeId": "ChIJn6o2XQCrNTERnlT0CnAEsM4", "mapUrl": "https://www.google.com/maps/search/?api=1&query=ChaTraMue%20HaNoi%20Centre&query_place_id=ChIJn6o2XQCrNTERnlT0CnAEsM4"}, {"name": "Trà Sữa MiuTea", "score": null, "reviews": 0, "street": "67a P. An Trạch", "ward": "Ô Chợ Dừa", "website": null, "phone": null, "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.027, "lng": 105.833, "placeId": "ChIJEzALF7mrNTERDhjpXhRXI6U", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20S%E1%BB%AFa%20MiuTea&query_place_id=ChIJEzALF7mrNTERDhjpXhRXI6U"}, {"name": "SHE - Coffee & more", "score": 4.3, "reviews": 79, "street": "18 Cát Linh", "ward": "Ô Chợ Dừa", "website": null, "phone": "+84 869 390 693", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.03, "lng": 105.833, "placeId": "ChIJ20dLW9-rNTERUgdIa7bfqyU", "mapUrl": "https://www.google.com/maps/search/?api=1&query=SHE%20-%20Coffee%20%26%20more&query_place_id=ChIJ20dLW9-rNTERUgdIa7bfqyU"}, {"name": "TIỆP TRỊNH", "score": 1.0, "reviews": 1, "street": "33 Cát Linh", "ward": "Ô Chợ Dừa", "website": null, "phone": "+84 985 524 529", "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.03, "lng": 105.833, "placeId": "ChIJfZBpDc6rNTERLjytJtSClvM", "mapUrl": "https://www.google.com/maps/search/?api=1&query=TI%E1%BB%86P%20TR%E1%BB%8ANH&query_place_id=ChIJfZBpDc6rNTERLjytJtSClvM"}, {"name": "JEOCE CORNER", "score": 4.9, "reviews": 71, "street": "21C Cát Linh", "ward": "Ô Chợ Dừa", "website": null, "phone": "+84 901 696 776", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.03, "lng": 105.833, "placeId": "ChIJ6U23L1irNTER5VLLGCO1Gn8", "mapUrl": "https://www.google.com/maps/search/?api=1&query=JEOCE%20CORNER&query_place_id=ChIJ6U23L1irNTER5VLLGCO1Gn8"}, {"name": "Trà Sữa ToCoToCo 10 Nguyễn Khuyến", "score": 3.9, "reviews": 100, "street": "10 P. Nguyễn Khuyến", "ward": "Văn Miếu - Quốc Tử Giám", "website": "https://tocotocotea.com/", "phone": "+84 848 173 924", "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.027, "lng": 105.84, "placeId": "ChIJ9e-G9EqrNTERsk-bqYQFPto", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20S%E1%BB%AFa%20ToCoToCo%2010%20Nguy%E1%BB%85n%20Khuy%E1%BA%BFn&query_place_id=ChIJ9e-G9EqrNTERsk-bqYQFPto"}, {"name": "Kem & Trà sữa Bingxue Văn Miếu", "score": 4.5, "reviews": 6, "street": "139 P. Nguyễn Khuyến", "ward": "Văn Miếu - Quốc Tử Giám", "website": "https://www.facebook.com/share/1B88g7r47W/?mibextid=wwXIfr", "phone": "+84 386 852 986", "category": "Cửa hàng kem", "cats": ["Cửa hàng kem"], "lat": 21.027, "lng": 105.84, "placeId": "ChIJuXhHOgCrNTERJ65uLu1O5wg", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kem%20%26%20Tr%C3%A0%20s%E1%BB%AFa%20Bingxue%20V%C4%83n%20Mi%E1%BA%BFu&query_place_id=ChIJuXhHOgCrNTERJ65uLu1O5wg"}, {"name": "Cà phê Trang - Văn Miếu", "score": 4.6, "reviews": 123, "street": "47 P. Văn Miếu", "ward": "Văn Miếu - Quốc Tử Giám", "website": "https://www.facebook.com/caphetrang47vanmieu", "phone": "+84 904 413 558", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.027, "lng": 105.836, "placeId": "ChIJ_9vTRQCrNTERieuYA7F4Dkk", "mapUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%A0%20ph%C3%AA%20Trang%20-%20V%C4%83n%20Mi%E1%BA%BFu&query_place_id=ChIJ_9vTRQCrNTERieuYA7F4Dkk"}, {"name": "Trà Nhà Linh Dung", "score": 5.0, "reviews": 1, "street": "204 Hào Nam", "ward": "Ô Chợ Dừa", "website": null, "phone": "+84 917 088 632", "category": "Quán trà sữa", "cats": [], "lat": 21.024, "lng": 105.826, "placeId": "ChIJV10oegCrNTERIiavPtT0Xv4", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20Nh%C3%A0%20Linh%20Dung&query_place_id=ChIJV10oegCrNTERIiavPtT0Xv4"}, {"name": "PhinHolic - 113 Nguyễn Khuyến, Hà Nội", "score": 4.8, "reviews": 16, "street": "113 P. Nguyễn Khuyến", "ward": "Văn Miếu - Quốc Tử Giám", "website": "https://caphemuoi.vn/", "phone": "+84 835 508 384", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.027, "lng": 105.84, "placeId": "ChIJWxp2foarNTER79_ZCPCIXFk", "mapUrl": "https://www.google.com/maps/search/?api=1&query=PhinHolic%20-%20113%20Nguy%E1%BB%85n%20Khuy%E1%BA%BFn%2C%20H%C3%A0%20N%E1%BB%99i&query_place_id=ChIJWxp2foarNTER79_ZCPCIXFk"}, {"name": "Bản Phố - Drinks & Local Space", "score": 5.0, "reviews": 114, "street": "5 Ngõ P. Nguyễn Thái Học", "ward": "Ô Chợ Dừa", "website": null, "phone": "+84 377 399 242", "category": "Phòng trà", "cats": ["Phòng trà", "Quán cà phê"], "lat": 21.032, "lng": 105.838, "placeId": "ChIJLzSFEACrNTERdWeIekCD1yY", "mapUrl": "https://www.google.com/maps/search/?api=1&query=B%E1%BA%A3n%20Ph%E1%BB%91%20-%20Drinks%20%26%20Local%20Space&query_place_id=ChIJLzSFEACrNTERdWeIekCD1yY"}, {"name": "Trà Sữa MiuTea", "score": null, "reviews": 0, "street": "21 P. Trần Quý Cáp", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": null, "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.025, "lng": 105.84, "placeId": "ChIJA2HL97erNTERgqd14gJO0es", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20S%E1%BB%AFa%20MiuTea&query_place_id=ChIJA2HL97erNTERgqd14gJO0es"}, {"name": "Trà Sữa MiuTea", "score": null, "reviews": 0, "street": "35 Đ. Lê Duẩn", "ward": "Cửa Nam", "website": null, "phone": null, "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.023, "lng": 105.841, "placeId": "ChIJpwu8s_erNTER70ChRWCwOY0", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20S%E1%BB%AFa%20MiuTea&query_place_id=ChIJpwu8s_erNTER70ChRWCwOY0"}, {"name": "With Chamei - Japanese Matcha & Houjicha", "score": 4.8, "reviews": 24, "street": "11 P. Ngô Tất Tố", "ward": "Văn Miếu - Quốc Tử Giám", "website": "http://beacons.ai/withchamei", "phone": "+84 363 768 680", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.026, "lng": 105.836, "placeId": "ChIJLVhVNF2tNTERFm7png_BmFg", "mapUrl": "https://www.google.com/maps/search/?api=1&query=With%20Chamei%20-%20Japanese%20Matcha%20%26%20Houjicha&query_place_id=ChIJLVhVNF2tNTERFm7png_BmFg"}, {"name": "Trà Ướp Bông Sen Ngọc Tỉnh Liên", "score": 4.7, "reviews": 37, "street": "32A P.Tôn Đức Thắng", "ward": "Ô Chợ Dừa", "website": "https://tancuongxanh.vn/tra-sen-tay-ho", "phone": "+84 912 741 357", "category": "Cửa hàng trà", "cats": ["Cửa hàng trà"], "lat": 21.022, "lng": 105.832, "placeId": "ChIJFQ70KpmrNTERKy3QAMiL3w8", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20%C6%AF%E1%BB%9Bp%20B%C3%B4ng%20Sen%20Ng%E1%BB%8Dc%20T%E1%BB%89nh%20Li%C3%AAn&query_place_id=ChIJFQ70KpmrNTERKy3QAMiL3w8"}, {"name": "Café Litie", "score": 4.5, "reviews": 528, "street": "20 Ng. Yên Thế", "ward": "Văn Miếu - Quốc Tử Giám", "website": "https://www.facebook.com/profile.php?id=61555428276146&mibextid=sCpJLy", "phone": "+84 858 755 556", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.029, "lng": 105.839, "placeId": "ChIJJQkuOQCrNTERO86omc5VTic", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Caf%C3%A9%20Litie&query_place_id=ChIJJQkuOQCrNTERO86omc5VTic"}, {"name": "Canteen Coffee & More", "score": 4.9, "reviews": 130, "street": "100 P. Nguyễn Khuyến", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 912 333 210", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.027, "lng": 105.84, "placeId": "ChIJub6FlyKrNTERW9rUbWRILI0", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Canteen%20Coffee%20%26%20More&query_place_id=ChIJub6FlyKrNTERW9rUbWRILI0"}, {"name": "The Beginning Coffee", "score": 4.6, "reviews": 152, "street": "51C", "ward": "Văn Miếu - Quốc Tử Giám", "website": "https://www.instagram.com/thebeginning.scs/", "phone": null, "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.027, "lng": 105.836, "placeId": "ChIJKYwxXzurNTERah1q1kR0G-0", "mapUrl": "https://www.google.com/maps/search/?api=1&query=The%20Beginning%20Coffee&query_place_id=ChIJKYwxXzurNTERah1q1kR0G-0"}, {"name": "Hien Minh Tea & Coffee", "score": 4.8, "reviews": 416, "street": "No. 13 P. Ngô Tất Tố", "ward": "Văn Miếu - Quốc Tử Giám", "website": "http://hienminhtea.com/", "phone": "+84 942 670 513", "category": "Phòng trà", "cats": ["Phòng trà", "Cửa hàng trà", "Cửa hàng trà truyền thống"], "lat": 21.026, "lng": 105.836, "placeId": "ChIJN0E2GRerNTERLU3bZ6s-Jy4", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Hien%20Minh%20Tea%20%26%20Coffee&query_place_id=ChIJN0E2GRerNTERLU3bZ6s-Jy4"}, {"name": "Trà Tân Cương Thái Nguyên tại Hà Nội", "score": 5.0, "reviews": 3, "street": "32A P.Tôn Đức Thắng", "ward": "Ô Chợ Dừa", "website": "https://tancuongxanh.vn/", "phone": "+84 911 018 813", "category": "Nhà sản xuất trà", "cats": ["Nhà sản xuất trà"], "lat": 21.022, "lng": 105.832, "placeId": "ChIJB2sKTACrNTEReLy7XC5C6R0", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20T%C3%A2n%20C%C6%B0%C6%A1ng%20Th%C3%A1i%20Nguy%C3%AAn%20t%E1%BA%A1i%20H%C3%A0%20N%E1%BB%99i&query_place_id=ChIJB2sKTACrNTEReLy7XC5C6R0"}, {"name": "Tiệm Trà Hữu Duyên", "score": 5.0, "reviews": 4, "street": "34a P. Phan Phù Tiên", "ward": "Ô Chợ Dừa", "website": null, "phone": null, "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.026, "lng": 105.839, "placeId": "ChIJ_8LWNQBVNDERLCiAs5-s54A", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Ti%E1%BB%87m%20Tr%C3%A0%20H%E1%BB%AFu%20Duy%C3%AAn&query_place_id=ChIJ_8LWNQBVNDERLCiAs5-s54A"}, {"name": "ARDOR", "score": 4.8, "reviews": 197, "street": "P. Nguyễn Khuyến/123 P. Văn Miếu", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": null, "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.027, "lng": 105.84, "placeId": "ChIJsYUUTeyrNTERCoh6QxoeC_E", "mapUrl": "https://www.google.com/maps/search/?api=1&query=ARDOR&query_place_id=ChIJsYUUTeyrNTERCoh6QxoeC_E"}, {"name": "1987 Trà chanh-Nước ép-Bánh mỳ", "score": 5.0, "reviews": 16, "street": "50 Đ. Lê Duẩn", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 904 617 434", "category": "Nhà hàng món bánh mì nướng", "cats": ["Nhà hàng món bánh mì nướng"], "lat": 21.023, "lng": 105.841, "placeId": "ChIJKYbxLACrNTERdtr5-aVGoqo", "mapUrl": "https://www.google.com/maps/search/?api=1&query=1987%20Tr%C3%A0%20chanh-N%C6%B0%E1%BB%9Bc%20%C3%A9p-B%C3%A1nh%20m%E1%BB%B3&query_place_id=ChIJKYbxLACrNTERdtr5-aVGoqo"}, {"name": "Rau má Mix GARDEN HOUSE ( Đồ uống Rau má và Trà Bí Đao)", "score": 4.8, "reviews": 16, "street": "50 Đ. Lê Duẩn", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 979 834 488", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.023, "lng": 105.841, "placeId": "ChIJB_R4RACrNTERPzEzxdrgbJw", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Rau%20m%C3%A1%20Mix%20GARDEN%20HOUSE%20(%20%C4%90%E1%BB%93%20u%E1%BB%91ng%20Rau%20m%C3%A1%20v%C3%A0%20Tr%C3%A0%20B%C3%AD%20%C4%90ao)&query_place_id=ChIJB_R4RACrNTERPzEzxdrgbJw"}, {"name": "LaBoong", "score": 3.8, "reviews": 13, "street": "36 P.Tôn Đức Thắng", "ward": "Ô Chợ Dừa", "website": "https://www.laboong.com/", "phone": "+84 911 523 488", "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.022, "lng": 105.832, "placeId": "ChIJfcgc5lirNTERcdx9w_eO-X4", "mapUrl": "https://www.google.com/maps/search/?api=1&query=LaBoong&query_place_id=ChIJfcgc5lirNTERcdx9w_eO-X4"}, {"name": "Công Ty Tnhh Vườn Trà Sunie Việt Nam", "score": 1.0, "reviews": 1, "street": "67 P. Nguyễn Thái Học", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": null, "category": "Quán trà sữa", "cats": [], "lat": 21.032, "lng": 105.838, "placeId": "ChIJIfXgLZirNTER1WP6QmFa9Ng", "mapUrl": "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20Ty%20Tnhh%20V%C6%B0%E1%BB%9Dn%20Tr%C3%A0%20Sunie%20Vi%E1%BB%87t%20Nam&query_place_id=ChIJIfXgLZirNTER1WP6QmFa9Ng"}, {"name": "Matcha Vibe", "score": 4.7, "reviews": 279, "street": "15 Quốc Tử Giám", "ward": "Văn Miếu - Quốc Tử Giám", "website": "https://matchavibe.vn/", "phone": "+84 969 061 562", "category": "Trà trân châu", "cats": ["Trà trân châu", "Cửa hàng bánh", "Quán cà phê", "Tiệm cà phê phục vụ các món trái cây", "Cửa hàng bán nước quả ép", "Nhà hàng"], "lat": 21.027, "lng": 105.835, "placeId": "ChIJdevCawlTNDERH8SZdi3VWiw", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Matcha%20Vibe&query_place_id=ChIJdevCawlTNDERH8SZdi3VWiw"}, {"name": "Hồng Trà Ngô Gia HN002", "score": 4.6, "reviews": 807, "street": "216 P. Khâm Thiên", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 708 126 237", "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.019, "lng": 105.837, "placeId": "ChIJIfDcFACrNTERJlPcRhdE1fU", "mapUrl": "https://www.google.com/maps/search/?api=1&query=H%E1%BB%93ng%20Tr%C3%A0%20Ng%C3%B4%20Gia%20HN002&query_place_id=ChIJIfDcFACrNTERJlPcRhdE1fU"}, {"name": "Mộc Trà", "score": 5.0, "reviews": 82, "street": "95C P. Khâm Thiên", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": null, "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.019, "lng": 105.837, "placeId": "ChIJPVZnwh-rNTERTOMKCyqnUe4", "mapUrl": "https://www.google.com/maps/search/?api=1&query=M%E1%BB%99c%20Tr%C3%A0&query_place_id=ChIJPVZnwh-rNTERTOMKCyqnUe4"}, {"name": "Serenitea", "score": 5.0, "reviews": 14, "street": "2RGM+FXM, P. Hồ Giám", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": null, "category": "Phòng trà", "cats": ["Phòng trà"], "lat": 21.023, "lng": 105.833, "placeId": "ChIJJwy1EgCrNTERYF_vPDoHbPo", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Serenitea&query_place_id=ChIJJwy1EgCrNTERYF_vPDoHbPo"}, {"name": "Trà Sữa Bọt Biếc - Ô Chợ Dừa", "score": 4.5, "reviews": 20, "street": "18 P. Ô Chợ Dừa", "ward": "Ô Chợ Dừa", "website": null, "phone": "+84 705 051 010", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.019, "lng": 105.825, "placeId": "ChIJJaN1Xo6rNTERn0X8hCopubo", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20S%E1%BB%AFa%20B%E1%BB%8Dt%20Bi%E1%BA%BFc%20-%20%C3%94%20Ch%E1%BB%A3%20D%E1%BB%ABa&query_place_id=ChIJJaN1Xo6rNTERn0X8hCopubo"}, {"name": "Trà Sen Tây Hồ Nghệ Nhân Trinh Nương", "score": 5.0, "reviews": 4, "street": "58 P. Hồ Giám", "ward": "Văn Miếu - Quốc Tử Giám", "website": "https://www.facebook.com/share/1Ds8Stwd1v/", "phone": "+84 933 141 413", "category": "Phòng trà", "cats": ["Phòng trà"], "lat": 21.023, "lng": 105.833, "placeId": "ChIJrWgyAACrNTER7IGDaH3voQM", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20Sen%20T%C3%A2y%20H%E1%BB%93%20Ngh%E1%BB%87%20Nh%C3%A2n%20Trinh%20N%C6%B0%C6%A1ng&query_place_id=ChIJrWgyAACrNTER7IGDaH3voQM"}, {"name": "TIỆM TRÀ MỘC MIÊN", "score": 5.0, "reviews": 28, "street": "274A P.Tôn Đức Thắng", "ward": "Ô Chợ Dừa", "website": null, "phone": "+84 973 790 995", "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.022, "lng": 105.832, "placeId": "ChIJo7fH3wCrNTERrvMZvocsdx4", "mapUrl": "https://www.google.com/maps/search/?api=1&query=TI%E1%BB%86M%20TR%C3%80%20M%E1%BB%98C%20MI%C3%8AN&query_place_id=ChIJo7fH3wCrNTERrvMZvocsdx4"}, {"name": "Chadee Đống Đa", "score": 4.9, "reviews": 894, "street": "19B P. Hồ Văn Chương", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 916 109 900", "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.021, "lng": 105.829, "placeId": "ChIJzaM8gHGrNTER_CPQUIRD-a4", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Chadee%20%C4%90%E1%BB%91ng%20%C4%90a&query_place_id=ChIJzaM8gHGrNTER_CPQUIRD-a4"}, {"name": "Tiệm trà HiHa -46 OCD", "score": 4.9, "reviews": 51, "street": "46 P. Ô Chợ Dừa", "ward": "Ô Chợ Dừa", "website": null, "phone": "+84 905 741 991", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.019, "lng": 105.825, "placeId": "ChIJL7vtFACrNTERNBHhRUM4IOQ", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Ti%E1%BB%87m%20tr%C3%A0%20HiHa%20-46%20OCD&query_place_id=ChIJL7vtFACrNTERNBHhRUM4IOQ"}, {"name": "Trà Sữa LUFA", "score": 4.7, "reviews": 16, "street": "26 P. Ô Chợ Dừa", "ward": "Ô Chợ Dừa", "website": null, "phone": "+84 816 568 383", "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.019, "lng": 105.825, "placeId": "ChIJiWMVaI6rNTERnqXD8Ka1v7Q", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20S%E1%BB%AFa%20LUFA&query_place_id=ChIJiWMVaI6rNTERnqXD8Ka1v7Q"}, {"name": "Trà Sữa Thanh Trà", "score": 2.1, "reviews": 19, "street": "117 P. Khâm Thiên", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": null, "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.019, "lng": 105.837, "placeId": "ChIJ_1yIaACrNTERzRfGygMucfA", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20S%E1%BB%AFa%20Thanh%20Tr%C3%A0&query_place_id=ChIJ_1yIaACrNTERzRfGygMucfA"}, {"name": "Trà Chanh Anh Em", "score": 5.0, "reviews": 11, "street": "Hồ Ng. Linh Quang", "ward": "Văn Miếu - Quốc Tử Giám", "website": "https://www.facebook.com/profile.php?id=100093935290289&mibextid=ZbWKwL", "phone": "+84 943 869 336", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.027, "lng": 105.836, "placeId": "ChIJI3pMMeOrNTERE6t1eKOGaYY", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20Chanh%20Anh%20Em&query_place_id=ChIJI3pMMeOrNTERE6t1eKOGaYY"}, {"name": "Sơn Trà Quán", "score": 4.6, "reviews": 26, "street": "60 Ng. Thổ Quan", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 915 099 789", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.027, "lng": 105.836, "placeId": "ChIJC4YAR4SrNTERiS5sQNgAbFU", "mapUrl": "https://www.google.com/maps/search/?api=1&query=S%C6%A1n%20Tr%C3%A0%20Qu%C3%A1n&query_place_id=ChIJC4YAR4SrNTERiS5sQNgAbFU"}, {"name": "Tiệm trà Laca", "score": 5.0, "reviews": 6, "street": "77 P. Hồ Văn Chương", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": null, "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.021, "lng": 105.829, "placeId": "ChIJr7KEKoyrNTERNuSNJuGjHHQ", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Ti%E1%BB%87m%20tr%C3%A0%20Laca&query_place_id=ChIJr7KEKoyrNTERNuSNJuGjHHQ"}, {"name": "Trà sữa Hong Kong", "score": 3.0, "reviews": 5, "street": "84 P. Khâm Thiên", "ward": "Đống Đa", "website": null, "phone": "+84 971 825 986", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.019, "lng": 105.837, "placeId": "ChIJ56-VAACrNTERpF6a6nYmtH8", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20s%E1%BB%AFa%20Hong%20Kong&query_place_id=ChIJ56-VAACrNTERpF6a6nYmtH8"}, {"name": "Trà sữa Đô Đô Ô Chợ Dừa", "score": 4.4, "reviews": 317, "street": "14 P. Ô Chợ Dừa", "ward": "Ô Chợ Dừa", "website": "http://trasuadodo.vn/", "phone": "+84 24 2218 9008", "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.019, "lng": 105.825, "placeId": "ChIJHYnbn12rNTERUrCoxHwuN7M", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20s%E1%BB%AFa%20%C4%90%C3%B4%20%C4%90%C3%B4%20%C3%94%20Ch%E1%BB%A3%20D%E1%BB%ABa&query_place_id=ChIJHYnbn12rNTERUrCoxHwuN7M"}, {"name": "Trà Dâu Sài Gòn", "score": 4.8, "reviews": 17, "street": "293 P.Tôn Đức Thắng", "ward": "Văn Miếu - Quốc Tử Giám", "website": "http://www.tradausaigon.com/", "phone": "+84 877 266 666", "category": "Nhà hàng bán đồ ăn mang về", "cats": ["Nhà hàng bán đồ ăn mang về"], "lat": 21.022, "lng": 105.832, "placeId": "ChIJFaJrEomrNTERnWzzw3H7jbs", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20D%C3%A2u%20S%C3%A0i%20G%C3%B2n&query_place_id=ChIJFaJrEomrNTERnWzzw3H7jbs"}, {"name": "Trà Mãng Cầu Kí - CS 2: 83 Hồ Văn Chương", "score": null, "reviews": 0, "street": "83 P. Hồ Văn Chương", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 989 029 898", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.021, "lng": 105.829, "placeId": "ChIJIWVtNgCrNTERlvzS1VbrsPE", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20M%C3%A3ng%20C%E1%BA%A7u%20K%C3%AD%20-%20CS%202%3A%2083%20H%E1%BB%93%20V%C4%83n%20Ch%C6%B0%C6%A1ng&query_place_id=ChIJIWVtNgCrNTERlvzS1VbrsPE"}, {"name": "Quán Trà Sữa Trân Châu", "score": 5.0, "reviews": 1, "street": "93, Phố Khâm Thiên, Quận Đống Đa", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 24 2216 8785", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.027, "lng": 105.836, "placeId": "ChIJ8cLNpoSrNTERrG4-1xOeg9g", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Qu%C3%A1n%20Tr%C3%A0%20S%E1%BB%AFa%20Tr%C3%A2n%20Ch%C3%A2u&query_place_id=ChIJ8cLNpoSrNTERrG4-1xOeg9g"}, {"name": "Tiệm Trà Phong Vị", "score": 5.0, "reviews": 2, "street": "92K P. Ô Chợ Dừa", "ward": "Ô Chợ Dừa", "website": null, "phone": null, "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.019, "lng": 105.825, "placeId": "ChIJYwUEHwCrNTERcNTyEV_J9lw", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Ti%E1%BB%87m%20Tr%C3%A0%20Phong%20V%E1%BB%8B&query_place_id=ChIJYwUEHwCrNTERcNTyEV_J9lw"}, {"name": "Trà Sữa Montea", "score": 5.0, "reviews": 1, "street": "92C P. Ô Chợ Dừa", "ward": "Ô Chợ Dừa", "website": null, "phone": null, "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.019, "lng": 105.825, "placeId": "ChIJGWMUOXirNTERjYuWsNby1r8", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20S%E1%BB%AFa%20Montea&query_place_id=ChIJGWMUOXirNTERjYuWsNby1r8"}, {"name": "Cửu Thuỷ Liêm Fengshui & Teahouse - Trà Thất Phong Vị Á Đông", "score": 4.6, "reviews": 13, "street": "200 Đ. La Thành", "ward": "Ô Chợ Dừa", "website": null, "phone": "+84 971 664 996", "category": "Quán cà phê", "cats": ["Quán cà phê", "Quán trà Trung Quốc", "Quán trà san sảnh"], "lat": 21.02, "lng": 105.82, "placeId": "ChIJb9lDGQCrNTERFoff5DI62aA", "mapUrl": "https://www.google.com/maps/search/?api=1&query=C%E1%BB%ADu%20Thu%E1%BB%B7%20Li%C3%AAm%20Fengshui%20%26%20Teahouse%20-%20Tr%C3%A0%20Th%E1%BA%A5t%20Phong%20V%E1%BB%8B%20%C3%81%20%C4%90%C3%B4ng&query_place_id=ChIJb9lDGQCrNTERFoff5DI62aA"}, {"name": "Hồng Trà Sủi Bọt Thanh Hoa", "score": 3.1, "reviews": 27, "street": "111 Hào Nam", "ward": "Ô Chợ Dừa", "website": null, "phone": "+84 24 3681 1199", "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.024, "lng": 105.826, "placeId": "ChIJVwSkjrCrNTERLth5Y9XMaqw", "mapUrl": "https://www.google.com/maps/search/?api=1&query=H%E1%BB%93ng%20Tr%C3%A0%20S%E1%BB%A7i%20B%E1%BB%8Dt%20Thanh%20Hoa&query_place_id=ChIJVwSkjrCrNTERLth5Y9XMaqw"}, {"name": "Contrast Coffee", "score": 4.2, "reviews": 780, "street": "264 Ngõ Văn Chương", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 342 281 675", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.027, "lng": 105.836, "placeId": "ChIJub3vVgCrNTERVqotdh6ePs0", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Contrast%20Coffee&query_place_id=ChIJub3vVgCrNTERVqotdh6ePs0"}, {"name": "Trà Sữa Viên Viên - Khâm Thiên", "score": 2.6, "reviews": 50, "street": "140 P. Khâm Thiên", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 764 771 917", "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.019, "lng": 105.837, "placeId": "ChIJLTCSTQCrNTER88dDZbEoNVQ", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20S%E1%BB%AFa%20Vi%C3%AAn%20Vi%C3%AAn%20-%20Kh%C3%A2m%20Thi%C3%AAn&query_place_id=ChIJLTCSTQCrNTER88dDZbEoNVQ"}, {"name": "Trà sữa Mongo Khâm Thiên", "score": 3.5, "reviews": 43, "street": "97A P. Khâm Thiên", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": null, "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.019, "lng": 105.837, "placeId": "ChIJA-YYQACrNTER3WBKwOxoz_g", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20s%E1%BB%AFa%20Mongo%20Kh%C3%A2m%20Thi%C3%AAn&query_place_id=ChIJA-YYQACrNTER3WBKwOxoz_g"}, {"name": "DẠO", "score": 5.0, "reviews": 79, "street": "P. Văn Miếu", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": null, "category": "Cửa hàng kem", "cats": ["Cửa hàng kem"], "lat": 21.027, "lng": 105.836, "placeId": "ChIJkeBTSgCrNTER4zanXDJ4hm8", "mapUrl": "https://www.google.com/maps/search/?api=1&query=D%E1%BA%A0O&query_place_id=ChIJkeBTSgCrNTER4zanXDJ4hm8"}, {"name": "Ngày Coffee & Tea", "score": 5.0, "reviews": 7, "street": "47 Ng. 168 Hào Nam", "ward": "Ô Chợ Dừa", "website": "https://www.facebook.com/1ngaycoffee/", "phone": "+84 989 543 601", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.024, "lng": 105.826, "placeId": "ChIJQ5eDvY6rNTER8ps-7JEu568", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Ng%C3%A0y%20Coffee%20%26%20Tea&query_place_id=ChIJQ5eDvY6rNTER8ps-7JEu568"}, {"name": "Quán Trà Sữa Teen", "score": 5.0, "reviews": 2, "street": "164 Ngõ Văn Chương", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 977 808 088", "category": "Nhà hàng hoặc Quán cà phê", "cats": ["Nhà hàng hoặc Quán cà phê"], "lat": 21.027, "lng": 105.836, "placeId": "ChIJH-Ocm5yrNTERgltfLIDmwn4", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Qu%C3%A1n%20Tr%C3%A0%20S%E1%BB%AFa%20Teen&query_place_id=ChIJH-Ocm5yrNTERgltfLIDmwn4"}, {"name": "Quán Trà Sữa Ích Hoà Đường - Taiwan Tea", "score": 2.8, "reviews": 23, "street": "72 Ô", "ward": "Đống Đa", "website": null, "phone": "+84 948 688 692", "category": "Nhà hàng", "cats": ["Nhà hàng"], "lat": 21.019, "lng": 105.825, "placeId": "ChIJC9uNbHirNTERdA4Rt60uDmY", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Qu%C3%A1n%20Tr%C3%A0%20S%E1%BB%AFa%20%C3%8Dch%20Ho%C3%A0%20%C4%90%C6%B0%E1%BB%9Dng%20-%20Taiwan%20Tea&query_place_id=ChIJC9uNbHirNTERdA4Rt60uDmY"}, {"name": "Tiệm Trà Bánh Ông Béo", "score": 5.0, "reviews": 13, "street": "17 Ng. Quan Thổ 1", "ward": "Ô Chợ Dừa", "website": null, "phone": null, "category": "Tiệm bánh", "cats": ["Tiệm bánh"], "lat": 21.019, "lng": 105.825, "placeId": "ChIJf_izqWCrNTERkPFdgelRmsw", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Ti%E1%BB%87m%20Tr%C3%A0%20B%C3%A1nh%20%C3%94ng%20B%C3%A9o&query_place_id=ChIJf_izqWCrNTERkPFdgelRmsw"}, {"name": "HIEN- Tafu- caramen", "score": 5.0, "reviews": 9, "street": "322 P. Khâm Thiên", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 378 937 599", "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.019, "lng": 105.837, "placeId": "ChIJM7iAmVqrNTERqbGhKoiraXM", "mapUrl": "https://www.google.com/maps/search/?api=1&query=HIEN-%20Tafu-%20caramen&query_place_id=ChIJM7iAmVqrNTERqbGhKoiraXM"}, {"name": "Cafe trứng Hào Nam", "score": 4.7, "reviews": 40, "street": "20 Ngh. 168/1 P. Hào Nam", "ward": "Ô Chợ Dừa", "website": null, "phone": "+84 24 3736 5305", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.024, "lng": 105.826, "placeId": "ChIJYZWYUQCrNTERrzUaNBC4VYU", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Cafe%20tr%E1%BB%A9ng%20H%C3%A0o%20Nam&query_place_id=ChIJYZWYUQCrNTERrzUaNBC4VYU"}, {"name": "Trà Mãng Cầu Kí - CS 1: Số 1/139 Đê La Thành", "score": null, "reviews": 0, "street": "1/139 Đ. La Thành", "ward": "Ô Chợ Dừa", "website": null, "phone": "+84 989 029 898", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.02, "lng": 105.82, "placeId": "ChIJc66DJgCrNTERYfJ8iZQIg0s", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20M%C3%A3ng%20C%E1%BA%A7u%20K%C3%AD%20-%20CS%201%3A%20S%E1%BB%91%201%2F139%20%C4%90%C3%AA%20La%20Th%C3%A0nh&query_place_id=ChIJc66DJgCrNTERYfJ8iZQIg0s"}, {"name": "Quán Trà Long Thành", "score": null, "reviews": 0, "street": "8 P. Hồ Văn Chương", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 979 032 713", "category": "Quán cà phê", "cats": ["Quán cà phê", "Nhà hàng hoặc Quán cà phê"], "lat": 21.021, "lng": 105.829, "placeId": "ChIJqWogtZyrNTERtU02MJ6li5U", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Qu%C3%A1n%20Tr%C3%A0%20Long%20Th%C3%A0nh&query_place_id=ChIJqWogtZyrNTERtU02MJ6li5U"}, {"name": "Trà chanh bụi", "score": 4.0, "reviews": 4, "street": "60 Ng. Văn Chương", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": null, "category": "Quán bia", "cats": ["Quán bia"], "lat": 21.027, "lng": 105.836, "placeId": "ChIJm8NUOgCrNTERYAmQl70p2QY", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20chanh%20b%E1%BB%A5i&query_place_id=ChIJm8NUOgCrNTERYAmQl70p2QY"}, {"name": "Tiệm Trà An Nam", "score": 5.0, "reviews": 7, "street": "133 P. Khâm Thiên", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 978 182 813", "category": "Cửa hàng bán nước quả ép", "cats": ["Cửa hàng bán nước quả ép"], "lat": 21.019, "lng": 105.837, "placeId": "ChIJk6amGgCrNTERXuNThOATQSE", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Ti%E1%BB%87m%20Tr%C3%A0%20An%20Nam&query_place_id=ChIJk6amGgCrNTERXuNThOATQSE"}, {"name": "Chat thái trà chanh thái lan", "score": 4.5, "reviews": 6, "street": "77 P. Ô Chợ Dừa", "ward": "Đống Đa", "website": "https://fbi.bet/", "phone": "+84 398 987 789", "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.019, "lng": 105.825, "placeId": "ChIJV1ZGxYKrNTERdb6YVNPCkwg", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Chat%20th%C3%A1i%20tr%C3%A0%20chanh%20th%C3%A1i%20lan&query_place_id=ChIJV1ZGxYKrNTERdb6YVNPCkwg"}, {"name": "Trà Sữa MiuTea", "score": null, "reviews": 0, "street": "2RFM+MW3, Ngh. 71 Ng. Văn Hương", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": null, "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.027, "lng": 105.836, "placeId": "ChIJHwAKJierNTER1tdKjn5OATs", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20S%E1%BB%AFa%20MiuTea&query_place_id=ChIJHwAKJierNTER1tdKjn5OATs"}, {"name": "CỔ TRÀ Tea Shop", "score": 5.0, "reviews": 5, "street": "B1-72b Thong phong Alley, P.Tôn Đức Thắng", "ward": "Văn Miếu - Quốc Tử Giám", "website": "https://www.facebook.com/cotravn", "phone": "+84 983 073 345", "category": "Phòng trà", "cats": ["Phòng trà"], "lat": 21.022, "lng": 105.832, "placeId": "ChIJnZ5NlyKrNTERzStI5bOgJHc", "mapUrl": "https://www.google.com/maps/search/?api=1&query=C%E1%BB%94%20TR%C3%80%20Tea%20Shop&query_place_id=ChIJnZ5NlyKrNTERzStI5bOgJHc"}, {"name": "Inside Tea - Tiệm trà sữa", "score": 5.0, "reviews": 6, "street": "3A ngách 48 Ng. Linh Quang", "ward": "Văn Miếu - Quốc Tử Giám", "website": "https://www.facebook.com/Insidetea174", "phone": "+84 367 315 882", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.027, "lng": 105.836, "placeId": "ChIJCwbPZ6qrNTERDo4IpOvkPTg", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Inside%20Tea%20-%20Ti%E1%BB%87m%20tr%C3%A0%20s%E1%BB%AFa&query_place_id=ChIJCwbPZ6qrNTERDo4IpOvkPTg"}, {"name": "Trà Đá", "score": null, "reviews": 0, "street": "90 Hồ Linh Quang", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": null, "category": "Cửa hàng tạp phẩm", "cats": ["Cửa hàng tạp phẩm"], "lat": 21.027, "lng": 105.836, "placeId": "ChIJh-fsdwCrNTERzrNpUIjMk4E", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20%C4%90%C3%A1&query_place_id=ChIJh-fsdwCrNTERzrNpUIjMk4E"}, {"name": "Zaocha Vietnam", "score": 5.0, "reviews": 2, "street": "46 P. Ô Chợ Dừa", "ward": "Đống Đa", "website": null, "phone": null, "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.019, "lng": 105.825, "placeId": "ChIJx_Payu6rNTERXQ8o_4by4CU", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Zaocha%20Vietnam&query_place_id=ChIJx_Payu6rNTERXQ8o_4by4CU"}, {"name": "Capital Tea - Trà Ô Long Nguyên Vị", "score": 2.8, "reviews": 13, "street": "101 P. Ô Chợ Dừa", "ward": "Đống Đa", "website": null, "phone": "+84 356 983 243", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.019, "lng": 105.825, "placeId": "ChIJXzkQHQCrNTERgMxySgMK5hA", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Capital%20Tea%20-%20Tr%C3%A0%20%C3%94%20Long%20Nguy%C3%AAn%20V%E1%BB%8B&query_place_id=ChIJXzkQHQCrNTERgMxySgMK5hA"}, {"name": "Trà đá chị Tươi", "score": null, "reviews": 0, "street": "P.Tôn Đức Thắng/185 Ng. Thổ Quan", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": null, "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.022, "lng": 105.832, "placeId": "ChIJKxU8aQCrNTER0RMkREoGvvg", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20%C4%91%C3%A1%20ch%E1%BB%8B%20T%C6%B0%C6%A1i&query_place_id=ChIJKxU8aQCrNTER0RMkREoGvvg"}, {"name": "Trà Sữa ToCoToCo Ô Chợ Dừa", "score": 4.5, "reviews": 748, "street": "148 P. Ô Chợ Dừa", "ward": "Đống Đa", "website": "http://www.tocotocotea.com/", "phone": "+84 1900 636936", "category": "Trà trân châu", "cats": ["Trà trân châu", "Cửa hàng trà"], "lat": 21.019, "lng": 105.825, "placeId": "ChIJIauHN3irNTERbyXV2BdBf4o", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20S%E1%BB%AFa%20ToCoToCo%20%C3%94%20Ch%E1%BB%A3%20D%E1%BB%ABa&query_place_id=ChIJIauHN3irNTERbyXV2BdBf4o"}, {"name": "Matte Latcha Hào Nam", "score": 4.9, "reviews": 91, "street": "137 Hào Nam", "ward": "Ô Chợ Dừa", "website": null, "phone": "+84 989 057 688", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.024, "lng": 105.826, "placeId": "ChIJY9bcxUSrNTERNCtuDxg5ybE", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Matte%20Latcha%20H%C3%A0o%20Nam&query_place_id=ChIJY9bcxUSrNTERNCtuDxg5ybE"}, {"name": "So Coffee Roaster - Vũ Thạnh", "score": 5.0, "reviews": 33, "street": "P.102 A3 TT, Hào Nam", "ward": "Ô Chợ Dừa", "website": "https://www.facebook.com/Socoffeeroaster", "phone": "+84 704 929 969", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.024, "lng": 105.826, "placeId": "ChIJ7dQB15GrNTEReGxAqvt1P1Y", "mapUrl": "https://www.google.com/maps/search/?api=1&query=So%20Coffee%20Roaster%20-%20V%C5%A9%20Th%E1%BA%A1nh&query_place_id=ChIJ7dQB15GrNTEReGxAqvt1P1Y"}, {"name": "THƯƠNG coffee&workspace", "score": 4.5, "reviews": 391, "street": "66 Ng. Thông Phong", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 945 298 699", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.027, "lng": 105.836, "placeId": "ChIJuUU3NgCrNTEReB9okrWt-nQ", "mapUrl": "https://www.google.com/maps/search/?api=1&query=TH%C6%AF%C6%A0NG%20coffee%26workspace&query_place_id=ChIJuUU3NgCrNTEReB9okrWt-nQ"}, {"name": "Aries Rooftop Cafe", "score": 4.1, "reviews": 109, "street": "8 P. Ô Chợ Dừa", "ward": "Ô Chợ Dừa", "website": "https://www.facebook.com/ariesrooftopcoffee/", "phone": "+84 378 564 312", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.019, "lng": 105.825, "placeId": "ChIJz4NFbDKrNTER5xvlIpKOBR8", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Aries%20Rooftop%20Cafe&query_place_id=ChIJz4NFbDKrNTER5xvlIpKOBR8"}, {"name": "Hầm Trú Ẩn Cafe", "score": 4.1, "reviews": 1984, "street": "78 Trung Tiền", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 378 802 382", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.018, "lng": 105.835, "placeId": "ChIJyT7XhqqrNTERbz0ellLo1f4", "mapUrl": "https://www.google.com/maps/search/?api=1&query=H%E1%BA%A7m%20Tr%C3%BA%20%E1%BA%A8n%20Cafe&query_place_id=ChIJyT7XhqqrNTERbz0ellLo1f4"}, {"name": "Sữa Juice - Trà hoa quả tươi", "score": 5.0, "reviews": 5, "street": "150 P. Đông Các", "ward": "Đống Đa", "website": null, "phone": "+84 966 509 591", "category": "Cửa hàng quần áo", "cats": ["Cửa hàng quần áo"], "lat": 21.015, "lng": 105.825, "placeId": "ChIJT6cSt06rNTERzZyyeAQ9nqw", "mapUrl": "https://www.google.com/maps/search/?api=1&query=S%E1%BB%AFa%20Juice%20-%20Tr%C3%A0%20hoa%20qu%E1%BA%A3%20t%C6%B0%C6%A1i&query_place_id=ChIJT6cSt06rNTERzZyyeAQ9nqw"}, {"name": "Gài Cà Phê", "score": 4.5, "reviews": 63, "street": "131 P.Tôn Đức Thắng", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 868 259 253", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.022, "lng": 105.832, "placeId": "ChIJk1z_gTarNTERCYsg6a_K1Vk", "mapUrl": "https://www.google.com/maps/search/?api=1&query=G%C3%A0i%20C%C3%A0%20Ph%C3%AA&query_place_id=ChIJk1z_gTarNTERCYsg6a_K1Vk"}, {"name": "Trà Sữa ToCoToCo 59 Tôn Đức Thắng", "score": 4.2, "reviews": 717, "street": "59 P.Tôn Đức Thắng", "ward": "Văn Miếu - Quốc Tử Giám", "website": "http://www.tocotocotea.com/", "phone": "+84 845 502 294", "category": "Quán cà phê", "cats": ["Quán cà phê", "Trà trân châu", "Cửa hàng trà"], "lat": 21.022, "lng": 105.832, "placeId": "ChIJDZU4H5yrNTER6AJF5eP_Nis", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20S%E1%BB%AFa%20ToCoToCo%2059%20T%C3%B4n%20%C4%90%E1%BB%A9c%20Th%E1%BA%AFng&query_place_id=ChIJDZU4H5yrNTER6AJF5eP_Nis"}, {"name": "Ding Tea Khâm Thiên", "score": 3.8, "reviews": 68, "street": "241 P. Khâm Thiên", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 24 3222 2626", "category": "Trà trân châu", "cats": ["Trà trân châu"], "lat": 21.019, "lng": 105.837, "placeId": "ChIJ-2Xq34KrNTERq4kG38MyxGg", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Ding%20Tea%20Kh%C3%A2m%20Thi%C3%AAn&query_place_id=ChIJ-2Xq34KrNTERq4kG38MyxGg"}, {"name": "Feeling tea Khâm Thiên", "score": 4.0, "reviews": 161, "street": "219 P. Khâm Thiên", "ward": "Văn Miếu - Quốc Tử Giám", "website": "http://www.feelingteaonline.com/", "phone": "+84 24 3511 9725", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.019, "lng": 105.837, "placeId": "ChIJpfa5P4OrNTERP7iJGDqKDnY", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Feeling%20tea%20Kh%C3%A2m%20Thi%C3%AAn&query_place_id=ChIJpfa5P4OrNTERP7iJGDqKDnY"}, {"name": "Universal Tea (U:Tea) Hào Nam", "score": 3.8, "reviews": 168, "street": "83 Hào Nam, phường Ô Chợ Dừa, quận Đống Đa, Hà Nội Hà Nội", "ward": "Ô Chợ Dừa", "website": "https://ggg.com.vn/", "phone": "+84 28 7108 7088", "category": "Nhà hàng", "cats": ["Nhà hàng"], "lat": 21.024, "lng": 105.826, "placeId": "ChIJl_8Kz_erNTERydF8dWa5BbQ", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Universal%20Tea%20(U%3ATea)%20H%C3%A0o%20Nam&query_place_id=ChIJl_8Kz_erNTERydF8dWa5BbQ"}, {"name": "Feny Feny", "score": 4.1, "reviews": 81, "street": "41 P. Ô Chợ Dừa", "ward": "Đống Đa", "website": null, "phone": null, "category": "Cửa hàng trà", "cats": ["Cửa hàng trà"], "lat": 21.019, "lng": 105.825, "placeId": "ChIJcyWDxYyrNTERTTsHoLLdnK4", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Feny%20Feny&query_place_id=ChIJcyWDxYyrNTERTTsHoLLdnK4"}, {"name": "CHIN CHIN - Trà Sữa Đậm Vị & Trà Hoa Quả Tươi- Hồ Linh Quang", "score": 3.4, "reviews": 14, "street": "19/71 Hồ Linh Quang", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 989 013 796", "category": "Nhà phân phối đồ uống", "cats": ["Nhà phân phối đồ uống"], "lat": 21.027, "lng": 105.836, "placeId": "ChIJfQEYj2mrNTERBGmUUXz2sIU", "mapUrl": "https://www.google.com/maps/search/?api=1&query=CHIN%20CHIN%20-%20Tr%C3%A0%20S%E1%BB%AFa%20%C4%90%E1%BA%ADm%20V%E1%BB%8B%20%26%20Tr%C3%A0%20Hoa%20Qu%E1%BA%A3%20T%C6%B0%C6%A1i-%20H%E1%BB%93%20Linh%20Quang&query_place_id=ChIJfQEYj2mrNTERBGmUUXz2sIU"}, {"name": "Mixue Khâm Thiên", "score": 3.9, "reviews": 104, "street": "151 P. Khâm Thiên", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": null, "category": "Cửa hàng kem", "cats": ["Cửa hàng kem"], "lat": 21.019, "lng": 105.837, "placeId": "ChIJJff6pLirNTER1SrfTKs3c4w", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Mixue%20Kh%C3%A2m%20Thi%C3%AAn&query_place_id=ChIJJff6pLirNTER1SrfTKs3c4w"}, {"name": "Casamia Cafe", "score": 4.9, "reviews": 114, "street": "27 Ngh 74 Ng. Thịnh Hào 1", "ward": "Ô Chợ Dừa", "website": null, "phone": "+84 948 181 222", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.019, "lng": 105.825, "placeId": "ChIJjyzPRgCrNTER3NSMTEoLSZc", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Casamia%20Cafe&query_place_id=ChIJjyzPRgCrNTER3NSMTEoLSZc"}, {"name": "Mixue 43 Hào Nam", "score": 3.3, "reviews": 38, "street": "43 Hào Nam", "ward": "Ô Chợ Dừa", "website": null, "phone": "+84 353 896 918", "category": "Cửa hàng kem", "cats": ["Cửa hàng kem"], "lat": 21.024, "lng": 105.826, "placeId": "ChIJgSEHNACrNTER4kyGbE0s0aY", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Mixue%2043%20H%C3%A0o%20Nam&query_place_id=ChIJgSEHNACrNTER4kyGbE0s0aY"}, {"name": "Sữa Chua Trân Châu Hạ Long - Ô Chợ Dừa", "score": 4.8, "reviews": 349, "street": "10", "ward": "Đống Đa", "website": "https://suachuatranchauhalong.vn/", "phone": "+84 977 315 885", "category": "Cửa hàng cà phê", "cats": ["Cửa hàng cà phê", "Cửa hàng sữa chua đông lạnh"], "lat": 21.018, "lng": 105.829, "placeId": "ChIJmQjhDq6rNTERa5PGO_PBRo4", "mapUrl": "https://www.google.com/maps/search/?api=1&query=S%E1%BB%AFa%20Chua%20Tr%C3%A2n%20Ch%C3%A2u%20H%E1%BA%A1%20Long%20-%20%C3%94%20Ch%E1%BB%A3%20D%E1%BB%ABa&query_place_id=ChIJmQjhDq6rNTERa5PGO_PBRo4"}, {"name": "Tiệm Sữa Hạt - Khâm Thiên", "score": 4.8, "reviews": 65, "street": "324 P. Khâm Thiên", "ward": "Văn Miếu - Quốc Tử Giám", "website": "https://www.facebook.com/share/9kY7EF2pNTAoGdfy/?mibextid=JRoKGi", "phone": "+84 359 324 900", "category": "Quầy giải khát", "cats": ["Quầy giải khát"], "lat": 21.019, "lng": 105.837, "placeId": "ChIJ--xjFQCrNTEREA3weW-wyVY", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Ti%E1%BB%87m%20S%E1%BB%AFa%20H%E1%BA%A1t%20-%20Kh%C3%A2m%20Thi%C3%AAn&query_place_id=ChIJ--xjFQCrNTEREA3weW-wyVY"}, {"name": "Trà sữa Lé Nama Tôn Đức Thắng", "score": 3.7, "reviews": 3, "street": "Ngh. 28 Ng. Văn Hương Ngõ Văn Chương", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 905 951 986", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.027, "lng": 105.836, "placeId": "ChIJ6UufHbirNTERqBsDuFUOEVY", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tr%C3%A0%20s%E1%BB%AFa%20L%C3%A9%20Nama%20T%C3%B4n%20%C4%90%E1%BB%A9c%20Th%E1%BA%AFng&query_place_id=ChIJ6UufHbirNTERqBsDuFUOEVY"}, {"name": "Hefkcha trà sữa Đài Loan", "score": 4.4, "reviews": 16, "street": "260 P. Khâm Thiên", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 916 836 668", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.019, "lng": 105.837, "placeId": "ChIJL_2mTaCrNTERu5mIwVV1SG0", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Hefkcha%20tr%C3%A0%20s%E1%BB%AFa%20%C4%90%C3%A0i%20Loan&query_place_id=ChIJL_2mTaCrNTERu5mIwVV1SG0"}, {"name": "Tiệm Trà Sữa Te Amo", "score": 2.0, "reviews": 7, "street": "2R9P+MW6", "ward": "Văn Miếu - Quốc Tử Giám", "website": null, "phone": "+84 1900 633370", "category": "Quán cà phê", "cats": ["Quán cà phê"], "lat": 21.027, "lng": 105.836, "placeId": "ChIJ60ny3ISrNTERHgqWAWwE5a4", "mapUrl": "https://www.google.com/maps/search/?api=1&query=Ti%E1%BB%87m%20Tr%C3%A0%20S%E1%BB%AFa%20Te%20Amo&query_place_id=ChIJ60ny3ISrNTERHgqWAWwE5a4"}];
+</script>
+<script>
+/* ============ STATE ============ */
+const MOODS = [
+  {key:'chill',   emo:'😌', nm:'Chill thư giãn', desc:'Quán êm, ngồi lâu được', match:p=>/trà|tea|coffee|cà phê|phòng trà/i.test(p.category+p.cats.join())},
+  {key:'happy',   emo:'🤩', nm:'Vui phấn khích', desc:'Topping nhiều, ngọt ngào', match:p=>/trân châu|trà sữa|kem/i.test(p.category+p.cats.join())},
+  {key:'tired',   emo:'🥱', nm:'Mệt cần tỉnh',   desc:'Cà phê, trà đậm vị',     match:p=>/cà phê|coffee|trà ô long|truyền thống/i.test(p.category+p.cats.join())},
+  {key:'sad',     emo:'🥺', nm:'Buồn cần dỗ',    desc:'Ngọt ấm, đồ uống chữa lành', match:p=>/trân châu|kem|trà sữa|sữa/i.test(p.category+p.cats.join())},
+  {key:'social',  emo:'🥳', nm:'Tụ tập bạn bè',  desc:'Quán rộng, nhiều review',  match:p=>(p.reviews||0)>=50},
+  {key:'explore', emo:'🧭', nm:'Khám phá mới',   desc:'Quán lạ, ít người biết',   match:p=>(p.reviews||0)<30},
+  {key:'premium', emo:'✨', nm:'Tự thưởng',       desc:'Quán đánh giá cao nhất',   match:p=>(p.score||0)>=4.7},
+];
+const WHEEL_COLORS=['#ff6b9d','#ffb86b','#6bdfb8','#b08fff','#ff8fb0','#ffd28a','#8fe8c8','#c4a8ff'];
+
+const state={mood:null, userPos:null, cats:new Set(), maxDist:3, minScore:0, pool:[], rotation:0, spinning:false};
+
+/* ============ HELPERS ============ */
+const $=s=>document.querySelector(s);
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2400);}
+function haversine(a,b,c,d){const R=6371,toR=x=>x*Math.PI/180;const dLat=toR(c-a),dLng=toR(d-b);const x=Math.sin(dLat/2)**2+Math.cos(toR(a))*Math.cos(toR(c))*Math.sin(dLng/2)**2;return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));}
+function withDist(p){if(state.userPos){p=Object.assign({},p);p._d=haversine(state.userPos.lat,state.userPos.lng,p.lat,p.lng);}return p;}
+
+/* ============ BUBBLES BG ============ */
+(function(){const b=$('#bubbles');for(let i=0;i<14;i++){const s=document.createElement('span');const sz=8+Math.random()*34;s.style.width=s.style.height=sz+'px';s.style.left=Math.random()*100+'%';s.style.animationDuration=(9+Math.random()*12)+'s';s.style.animationDelay=(-Math.random()*15)+'s';b.appendChild(s);}})();
+
+/* ============ STEP 1: MOOD ============ */
+const moodGrid=$('#moodGrid');
+MOODS.forEach(m=>{
+  const el=document.createElement('button');
+  el.className='mood';el.dataset.k=m.key;
+  el.innerHTML=`<span class="emo">${m.emo}</span><span class="nm">${m.nm}</span>`;
+  el.onclick=()=>{
+    document.querySelectorAll('.mood').forEach(x=>x.classList.remove('on'));
+    el.classList.add('on');state.mood=m;
+    $('#cardFilter').classList.remove('hidden');
+    buildCats();
+    applyFilters();
+    setTimeout(()=>$('#cardFilter').scrollIntoView({behavior:'smooth',block:'start'}),150);
+  };
+  moodGrid.appendChild(el);
+});
+
+/* ============ STEP 2: FILTERS ============ */
+function buildCats(){
+  const moodPool=PLACES.filter(state.mood.match);
+  const counts={};
+  moodPool.forEach(p=>{(p.cats.length?p.cats:[p.category]).forEach(c=>{counts[c]=(counts[c]||0)+1;});});
+  const top=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const wrap=$('#catChips');wrap.innerHTML='';state.cats.clear();
+  top.forEach(([c,n])=>{
+    const ch=document.createElement('button');ch.className='chip';ch.textContent=`${c} (${n})`;ch.dataset.c=c;
+    ch.onclick=()=>{ch.classList.toggle('on');if(ch.classList.contains('on'))state.cats.add(c);else state.cats.delete(c);updateCatLabel();applyFilters();};
+    wrap.appendChild(ch);
+  });
+  updateCatLabel();
+}
+function updateCatLabel(){$('#catCount').textContent=state.cats.size?`${state.cats.size} kiểu`:'tất cả';}
+
+$('#geoBtn').onclick=()=>{
+  if(!navigator.geolocation){toast('Trình duyệt không hỗ trợ định vị');return;}
+  $('#geoBtn').textContent='⏳ Đang lấy vị trí...';
+  navigator.geolocation.getCurrentPosition(pos=>{
+    state.userPos={lat:pos.coords.latitude,lng:pos.coords.longitude};
+    const g=$('#geoBtn');g.textContent='✅ Đã bật định vị — lọc theo khoảng cách';g.classList.add('ok');
+    $('#distRow').style.opacity='1';
+    applyFilters();
+  },err=>{
+    $('#geoBtn').textContent='📍 Bật định vị để tính khoảng cách';
+    toast('Không lấy được vị trí. Bỏ qua lọc khoảng cách.');
+  },{enableHighAccuracy:true,timeout:8000});
+};
+
+const distEl=$('#dist'),scoreEl=$('#score');
+distEl.oninput=()=>{state.maxDist=+distEl.value;$('#distVal').textContent=state.maxDist.toFixed(1)+' km';applyFilters();};
+scoreEl.oninput=()=>{state.minScore=+scoreEl.value;$('#scoreVal').textContent='≥ '+state.minScore+'★';applyFilters();};
+$('#distRow').style.opacity='.45';
+
+function applyFilters(){
+  let pool=PLACES.filter(state.mood.match);
+  if(state.cats.size) pool=pool.filter(p=>(p.cats.length?p.cats:[p.category]).some(c=>state.cats.has(c)));
+  if(state.minScore>0) pool=pool.filter(p=>(p.score||0)>=state.minScore);
+  pool=pool.map(withDist);
+  if(state.userPos) pool=pool.filter(p=>p._d<=state.maxDist).sort((a,b)=>a._d-b._d);
+  state.pool=pool;
+  const n=pool.length;
+  $('#filterCount').textContent=n?`Có ${n} quán hợp ý — sẵn sàng quay!`:'Không có quán nào khớp. Nới lỏng bộ lọc nhé!';
+  $('#toWheel').disabled=n===0;
+  return pool;
+}
+
+$('#toWheel').onclick=()=>{
+  if(!state.pool.length)return;
+  $('#cardWheel').classList.remove('hidden');
+  $('#wheelHint').textContent=`Vòng quay gồm ${Math.min(state.pool.length,8)} ứng viên hợp mood "${state.mood.nm}". Quay để chốt!`;
+  drawWheel();
+  setTimeout(()=>$('#cardWheel').scrollIntoView({behavior:'smooth',block:'start'}),150);
+};
+$('#backFilter').onclick=()=>{$('#cardFilter').scrollIntoView({behavior:'smooth',block:'start'});};
+
+/* ============ STEP 3: WHEEL ============ */
+let wheelItems=[];
+const cv=$('#wheel'),ctx=cv.getContext('2d');
+function pickWheelItems(){
+  // ưu tiên gần + điểm cao, lấy tối đa 8 cho vòng quay
+  let arr=[...state.pool];
+  if(state.userPos) arr.sort((a,b)=>a._d-b._d);
+  else arr.sort((a,b)=>(b.score||0)-(a.score||0));
+  return arr.slice(0,8);
+}
+function drawWheel(){
+  wheelItems=pickWheelItems();
+  const N=wheelItems.length,cx=300,cy=300,r=300;
+  ctx.clearRect(0,0,600,600);
+  const seg=2*Math.PI/N;
+  wheelItems.forEach((it,i)=>{
+    const a0=i*seg-Math.PI/2,a1=a0+seg;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,a0,a1);ctx.closePath();
+    ctx.fillStyle=WHEEL_COLORS[i%WHEEL_COLORS.length];ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,.5)';ctx.lineWidth=3;ctx.stroke();
+    // label
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(a0+seg/2);
+    ctx.textAlign='right';ctx.fillStyle='#2a1a3e';ctx.font='700 21px "Be Vietnam Pro",sans-serif';
+    let nm=it.name.replace(/\s*[-–].*$/,'').trim();if(nm.length>17)nm=nm.slice(0,16)+'…';
+    ctx.fillText(nm,r-22,7);
+    ctx.restore();
+  });
+}
+$('#spinBtn').onclick=()=>{
+  if(state.spinning||!wheelItems.length)return;
+  state.spinning=true;$('#spinBtn').disabled=true;
+  const N=wheelItems.length,seg=360/N;
+  const winIdx=Math.floor(Math.random()*N);
+  const turns=5+Math.floor(Math.random()*3);
+  // con trỏ ở đỉnh (12h). segment i tâm tại góc (i*seg + seg/2) tính từ -90°.
+  const targetCenter=winIdx*seg+seg/2;
+  const finalRot=turns*360 + (360 - targetCenter);
+  state.rotation+=finalRot;
+  cv.style.transform=`rotate(${state.rotation}deg)`;
+  setTimeout(()=>{state.spinning=false;$('#spinBtn').disabled=false;showResult(wheelItems[winIdx]);},5200);
+};
+
+/* ============ STEP 4: RESULT ============ */
+function showResult(p){
+  const card=$('#cardResult');card.classList.remove('hidden');
+  const stars=p.score?('★'.repeat(Math.round(p.score))):'—';
+  const dist=p._d!=null?`${p._d.toFixed(1)} km`:null;
+  const tel=p.phone?p.phone.replace(/\s+/g,''):null;
+  card.innerHTML=`
+    <div class="res-tag">🎉 Hôm nay uống ở</div>
+    <div class="res-name">${p.name}</div>
+    <div class="res-meta">
+      <span>⭐ ${p.score?p.score.toFixed(1):'?'} <small style="opacity:.6">(${p.reviews||0})</small></span>
+      ${dist?`<span>📍 ${dist}</span>`:''}
+      <span>🏷️ ${p.category}</span>
+    </div>
+    <div class="res-line"><span class="ic">🗺️</span><span>${p.street}, ${p.ward}</span></div>
+    ${p.phone?`<div class="res-line"><span class="ic">📞</span><span>${p.phone}</span></div>`:''}
+    ${p.website?`<div class="res-line"><span class="ic">🌐</span><span><a href="${p.website}" target="_blank" style="color:var(--mint)">${p.website.replace(/^https?:\/\//,'').slice(0,32)}</a></span></div>`:''}
+    <div class="res-actions">
+      <a class="a-map" href="${p.mapUrl}" target="_blank">Chỉ đường 🚀</a>
+      ${tel?`<a class="a-call" href="tel:${tel}">Gọi đặt 📞</a>`:`<a class="a-call" href="${p.mapUrl}" target="_blank">Xem Maps</a>`}
+    </div>
+    <button class="btn ghost" id="reSpin" style="margin-top:14px">Quay lại lần nữa 🎡</button>
+  `;
+  $('#reSpin').onclick=()=>{card.classList.add('hidden');$('#cardWheel').scrollIntoView({behavior:'smooth'});};
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),200);
+  if(navigator.vibrate)navigator.vibrate([40,30,80]);
+}
+
+</script>
+</body>
+</html>
